@@ -1,3 +1,6 @@
+package com.gk.dom.java;
+
+import com.gk.util.NameUtil;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
 /**
@@ -11,38 +14,38 @@ public class MakeClass {
         String daoDFunction = "";
         String daoRLFunction = "";
         String body=(isDao?makeDao(isImpl):makeService(isImpl));
-        //—≠ª∑ºÏ≤‚ÃÌº”≤Ÿ◊˜
+        //È¶ñÂ≠óÊØçÂ§ßÂÜô
         for (char c : chars) {
             if (c == 'u') {
-                daoUFunction = "public boolean update" + firstCharUpper(module) +
+                daoUFunction = "public boolean update" + NameUtil.firstCharUpper(module) +
                         "(" +
-                        firstCharUpper(module) +
-                        " info" //≤Œ ˝
+                        NameUtil.firstCharUpper(module) +
+                        " info"
                         +")"
                         + body;
             }
             if (c == 'r') {
                 daoRFunction = "public " +
-                         firstCharUpper(module)+
-                        " query" + firstCharUpper(module) +
+                         NameUtil.firstCharUpper(module)+
+                        " query" + NameUtil.firstCharUpper(module) +
                         "(" +
                         "Long id"
                         +")"
                         + body;
                 daoRLFunction = "public " +
                         "List<"+
-                        firstCharUpper(module)+
+                        NameUtil.firstCharUpper(module)+
                         ">" +
-                        " queryList" + firstCharUpper(module) +
+                        " queryList" + NameUtil.firstCharUpper(module) +
                         "("
                         +")"
                         + body;
             }
             if (c == 'd') {
-                daoDFunction = "public boolean del" + firstCharUpper(module) +
+                daoDFunction = "public boolean del" + NameUtil.firstCharUpper(module) +
                         "(" +
-                        firstCharUpper(module) +
-                        " info" //≤Œ ˝
+                        NameUtil.firstCharUpper(module) +
+                        " info"
                         +")"
                         + body;
             }
@@ -66,11 +69,6 @@ public class MakeClass {
         }
     }
 
-    //µ⁄“ª∏ˆ◊÷ƒ∏¥Û–¥
-    public String firstCharUpper(String module) {
 
-        char[] chars = module.toCharArray();
-        chars[0] -= 32;
-        return String.valueOf(chars);
-    }
+
 }
