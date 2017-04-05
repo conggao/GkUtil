@@ -8,21 +8,12 @@ import java.util.List;
  * Created by pc on 2017/4/5.
  */
 public class Import {
-    //export default set isDefault true else fault
-    Import(boolean isDefault) {
-        for (ImportEntity entity : getListEntity()) {
-            gkImport = "import " +
-                    (isDefault ? "{" : "") +
-                    MapReduceUtil.reduceWithComma(entity.getExportName()) +
-                    (isDefault ? "}" : "") +
-                    " from '" +
-                    entity.getPackageName() +
-                    "'";
-        }
 
-
+    Import() {
+        gkImport = new StringBuffer();
     }
-    public class ImportEntity {
+
+    public static class ImportEntity {
         private String packageName;
         private List<String> exportName;
 
@@ -53,14 +44,23 @@ public class Import {
         this.listEntity = listEntity;
     }
 
-    private String gkImport;
+    private StringBuffer gkImport;
 
-    public String getGkImport() {
-        return gkImport;
+    public void setGkImport(StringBuffer gkImport) {
+        this.gkImport = gkImport;
     }
 
-    public void setGkImport(String gkImport) {
-        this.gkImport = gkImport;
+    public String getGkImport(boolean isDefault) {
+        for (ImportEntity entity : getListEntity()) {
+            gkImport.append("import " +
+                    (isDefault ? "{" : "") +
+                    MapReduceUtil.reduceWithComma(entity.getExportName()) +
+                    (isDefault ? "}" : "") +
+                    " from '" +
+                    entity.getPackageName() +
+                    "'\n");
+        }
+        return gkImport.toString();
     }
 
 }
