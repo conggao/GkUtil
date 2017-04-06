@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Import {
 
-    Import() {
+    public Import() {
         gkImport = new StringBuffer();
     }
 
