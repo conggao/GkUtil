@@ -1,5 +1,6 @@
 package com.gk.dom.react;
 
+import com.gk.util.FileUtil;
 import com.gk.util.NameUtil;
 
 import java.util.ArrayList;
@@ -9,14 +10,36 @@ import java.util.List;
  * Created by pc on 2017/4/5.
  */
 public class Action {
-    Action() {
-        actionConstants = new ArrayList<String>();
+    private String module;
 
+    private Action() {
+
+    }
+
+    public Action(String module) {
+        actionConstants = new ArrayList<String>();
+        this.module = module;
+    }
+
+    public String getModule() {
+        return module;
+    }
+
+    public void setModule(String module) {
+        this.module = module;
     }
 
     private List<String> actionConstants;
 
-    public String makeAction(String module, String cr, String url) {
+    public List<String> getActionConstants() {
+        return actionConstants;
+    }
+
+    public void setActionConstants(List<String> actionConstants) {
+        this.actionConstants = actionConstants;
+    }
+
+    public String makeAction(String cr,String url){
         StringBuffer sb = new StringBuffer();
         //更新操作
         String changeAction = "";
@@ -121,7 +144,7 @@ public class Action {
                 sb.append("\n");
             }
         }
-        if (actionConstants!=null && actionConstants.size()>0) {
+        if (actionConstants != null && actionConstants.size() > 0) {
             //生成import
             Import.ImportEntity entity = new Import.ImportEntity();
             entity.setExportName(actionConstants);
@@ -130,9 +153,18 @@ public class Action {
             ArrayList<Import.ImportEntity> listEntity = new ArrayList<Import.ImportEntity>();
             listEntity.add(entity);
             anImport.setListEntity(listEntity);
-            sb.insert(0,anImport.getGkImport(true));
+            sb.insert(0, anImport.getGkImport(true));
         }
         return sb.toString();
+    }
+
+    public boolean outPutAction(String cr, String url) {
+        if (FileUtil.outPutFile(module, makeAction(cr, url), 1)) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     private String gkActon;

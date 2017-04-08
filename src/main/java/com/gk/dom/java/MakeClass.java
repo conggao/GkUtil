@@ -7,6 +7,14 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
  * Created by yons on 2017/4/3.
  */
 public class MakeClass {
+    /**
+     * 生成java函数
+     * @param module  模块名
+     * @param urd  u(更新或者创建) r(查询) d(删除)
+     * @param isImpl
+     * @param isDao
+     * @return
+     */
     public String makeFunction(String module, String urd,Boolean isImpl,Boolean isDao) {
         char[] chars = urd.toCharArray();
         String daoUFunction = "";
@@ -54,6 +62,11 @@ public class MakeClass {
 
     }
 
+    /**
+     * 生成接口或者实现类
+     * @param isImpl 是否
+     * @return
+     */
     private String makeDao(Boolean isImpl) {
         if (isImpl) {
             return "{}";

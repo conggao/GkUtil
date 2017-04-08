@@ -30,4 +30,50 @@ public class FileUtil {
         }
         return constants;
     }
+
+    public static boolean outPutFile(String module, String text, int type) {
+        String dir = System.getProperty("user.dir") + "//src//main//output//" + module;
+        File dirFile = new File(dir);
+        if (!dirFile.getParentFile().exists()) {
+            if (!dirFile.getParentFile().mkdir())
+                return false;
+        }
+        if (!dirFile.exists()) {
+            if (!dirFile.mkdir()) {
+                return false;
+            }
+        }
+        if (type == 1) {
+            File file = new File(dir + "//actions//" + NameUtil.firstCharUpper(module) + "Action.js");
+            if (!file.getParentFile().exists()) {
+                if (!file.getParentFile().mkdir())
+                    return false;
+            }
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                writer.write(text);
+                writer.flush();
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+        } else if(type == 2) {
+            File file = new File(dir + "//reducers//" + NameUtil.firstCharUpper(module) + "Reducer.js");
+            if (!file.getParentFile().exists()) {
+                if (!file.getParentFile().mkdir())
+                    return false;
+            }
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                writer.write(text);
+                writer.flush();
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return true;
+    }
 }

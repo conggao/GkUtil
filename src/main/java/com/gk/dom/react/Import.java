@@ -50,6 +50,11 @@ public class Import {
         this.gkImport = gkImport;
     }
 
+    /**
+     * 生成import 带不带大括号
+     * @param isDefault 默认带大括号
+     * @return
+     */
     public String getGkImport(boolean isDefault) {
         for (ImportEntity entity : getListEntity()) {
             gkImport.append("import " +

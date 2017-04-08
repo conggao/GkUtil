@@ -12,7 +12,7 @@ public class ActionTest {
     Action action;
     @Before
     public void setUp() throws Exception {
-        action = new Action();
+        action = new Action("user");
     }
 
     @Test
@@ -21,8 +21,16 @@ public class ActionTest {
     }
     @Test
     public void makeAction() throws Exception{
-        System.out.println(action.makeAction("user",  "cr","http://localhost:8080"));
+        System.out.println(action.makeAction("cr","http://localhost:8080"));
 
+    }
+    @Test
+    public void outPutAction() throws Exception{
+        if (action.outPutAction("cr","http://localhost:8080")) {
+            System.out.println("success");
+        }else{
+            System.out.println("fail");
+        }
     }
 
 }
